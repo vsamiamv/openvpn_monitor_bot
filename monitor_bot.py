@@ -1,4 +1,3 @@
-#COMMENT
 import time
 import requests
 

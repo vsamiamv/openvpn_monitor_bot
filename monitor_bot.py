@@ -45,6 +45,6 @@ def monitor_file(filename, webhook_url, interval=1):
         print(f"An error occurred: {e}")
 
 if __name__ == '__main__':
-    filename = input("Enter the path to the file to monitor: ")
-    webhook_url = input("Enter your Discord webhook URL: ")
+    filename = "/var/log/openvpn/status.log"
+    webhook_url = "DISCORD_URL"
     monitor_file(filename, webhook_url)

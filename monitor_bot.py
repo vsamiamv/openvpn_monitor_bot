@@ -12,7 +12,7 @@ def send_to_discord(webhook_url, message):
     if response.status_code != 204:
         print(f"Failed to send message to Discord: {response.status_code}, {response.text}")
 
-def monitor_file(filename, webhook_url, interval=1):
+def monitor_file(filename, webhook_url, interval=60):
     print(f"Monitoring changes to the start of lines in {filename}. Press Ctrl+C to stop.")
     
     try:
@@ -26,12 +26,12 @@ def monitor_file(filename, webhook_url, interval=1):
             removed = current_lines - new_lines
 
             if added:
-                added_message = "Connected: " + " ".join(added)
+                added_message = "Connected: " + " ".join(line for line in added if line != "UNDEF")
                 print(added_message)
                 send_to_discord(webhook_url, added_message)
 
             if removed:
-                removed_message = "Disconnected: " + " ".join(removed)
+                removed_message = "Disconnected: " + " ".join(line for line in removed if line != "UNDEF")
                 print(removed_message)
                 send_to_discord(webhook_url, removed_message)
 
@@ -46,5 +46,5 @@ def monitor_file(filename, webhook_url, interval=1):
 
 if __name__ == '__main__':
     filename = "/var/log/openvpn/status.log"
-    webhook_url = "DISCORD_URL"
+    webhook_url = "WEB_HOOK_URL"
     monitor_file(filename, webhook_url)

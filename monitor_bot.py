@@ -26,12 +26,12 @@ def monitor_file(filename, webhook_url, interval=1):
             removed = current_lines - new_lines
 
             if added:
-                added_message = "\nAdded:\n" + "\n".join(added)
+                added_message = "Connected: " + " ".join(added)
                 print(added_message)
                 send_to_discord(webhook_url, added_message)
 
             if removed:
-                removed_message = "\nRemoved:\n" + "\n".join(removed)
+                removed_message = "Disconnected: " + " ".join(removed)
                 print(removed_message)
                 send_to_discord(webhook_url, removed_message)
 
